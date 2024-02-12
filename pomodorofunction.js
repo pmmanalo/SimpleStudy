@@ -16,6 +16,7 @@ document.getElementById('pomodoroButton').addEventListener('click', function() {
 
 let timerInterval = null;
 let isTimerRunning = false;
+let timerPause = false;
 let originalMessage = "Let's get to work...";
 const startTime = 25 * 60; // 25 minutes in seconds
 let currentTime = startTime;
@@ -32,6 +33,7 @@ function toggleTimer() {
         document.getElementById('toggleButton').textContent = 'Pause';
         document.getElementById('message').textContent = originalMessage; // Reset the message
         isTimerRunning = true;
+        timerPause = false;
         document.body.classList.add('dim-background'); // Dim the background
         
         // Only set the interval if it's not already running
@@ -53,6 +55,7 @@ function toggleTimer() {
         }
     } else {
         // Pause the timer
+        timerPause = true;
         clearInterval(timerInterval);
         timerInterval = null; // Ensure interval is cleared
         isTimerRunning = false;
@@ -64,7 +67,7 @@ function toggleTimer() {
 document.getElementById('toggleButton').addEventListener('click', toggleTimer);
 
 document.getElementById('stopButton').addEventListener('click', function() {
-    if(isTimerRunning){
+    if(isTimerRunning || timerPause){
     // Stop the timer and reset it
     clearInterval(timerInterval);
     timerInterval = null; // Ensure interval is cleared
