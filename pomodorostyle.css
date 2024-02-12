@@ -25,20 +25,6 @@ body.notepadActive {
     box-sizing: border-box; /* Include padding in width calculation */
 }
 
-textarea {
-    width: calc(100% - 40px); /* Adjust if padding is 20px on each side */
-    height: 90vh;
-    padding: 20px;
-    border: none;
-    outline: none;
-    resize: none;
-    font-size: 20px;
-    box-sizing: border-box; /* Ensures padding doesn't add to the width */
-    display: block;
-    margin: 0 auto; /* Centering if needed, but should not be for full width */
-}
-
-
 button {
     font-size: 20px;
     padding: 20px 40px;
@@ -119,6 +105,33 @@ textarea {
     background-color: rgba(0, 0, 0, 0.5); /* Dim effect */
     transition: background-color 1s ease; /* Smooth transition */
 }
+
+@media (max-width: 600px) {
+    body, html {
+        flex-direction: column; /* Stack elements vertically on small screens */
+    }
+
+    #timer, #message {
+        font-size: 5vw; /* Increase font size for better visibility on small screens */
+    }
+
+    textarea {
+        width: 80vw; /* Adjust width to fit smaller screens */
+        height: 40vh; /* Adjust height accordingly */
+        font-size: 5vw; /* Adjust font size for readability */
+    }
+
+    button {
+        padding: 15px 30px; /* Adjust button size for easier interaction on touch screens */
+        font-size: 5vw; /* Increase font size for better visibility */
+    }
+
+    #embedMedia iframe {
+        width: 80vw; /* Adjust iframe width for smaller screens */
+        height: auto; /* Adjust height to maintain aspect ratio */
+    }
+}
+
 
 /* Additional styles for glowing timer, message, and button styles */
 
