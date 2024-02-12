@@ -62,8 +62,6 @@ textarea {
     display: block;
 }
 
-/* Existing styles... */
-
 .pomodoro-hide {
     display: none;
 }
@@ -131,9 +129,3 @@ textarea {
         height: auto; /* Adjust height to maintain aspect ratio */
     }
 }
-
-
-/* Additional styles for glowing timer, message, and button styles */
-
-/* Add any additional styles for buttons and body as before */
-
