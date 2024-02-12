@@ -1,0 +1,126 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #a8d5ba; /* Pastel green background */
+    color: #2a6041; /* Darker green for the font */
+    padding: 0;
+    margin: 0;
+}
+
+/* Reset or override flex styles when notepad is active */
+body.notepadActive {
+    display: block; /* Switch display back to default */
+    padding: 0;
+    margin: 0;
+}
+
+#content {
+    display: block; /* Ensure it's always block */
+    width: 100%;
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+textarea {
+    width: calc(100% - 40px); /* Adjust if padding is 20px on each side */
+    height: 90vh;
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 20px;
+    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+    display: block;
+    margin: 0 auto; /* Centering if needed, but should not be for full width */
+}
+
+
+button {
+    font-size: 20px;
+    padding: 20px 40px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #8cbfa7; /* Slightly darker pastel green for buttons */
+    border: none; /* Removes default border */
+    border-radius: 5px; /* Optional: Adds rounded corners to the buttons */
+    color: #2a6041; /* Darker green for the button text */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color:#8cbfa7
+}
+
+#content {
+    display: none;
+    width: 100%; /* Adjust if necessary to control the width */
+    /* Ensure it starts from the left side */
+    padding-left: 20px; /* Match the padding of the textarea */
+}
+
+textarea {
+    width: 1000px; /* Adjust width to account for padding */
+    height: 1000px; /* Adjust height to your preference */
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 20px;
+    padding: 10px;
+    background-color: inherit;
+    color: inherit;
+    /* Ensure the textarea fills the left side */
+    display: block;
+}
+
+/* Existing styles... */
+
+.pomodoro-hide {
+    display: none;
+}
+
+#pomodoroSection {
+    text-align: center;
+    font-size: 20px;
+    /* Add more styling as needed */
+}
+
+#timer {
+    font-size: 100px;
+    height: 200px;
+    margin-bottom: -5%;
+    color: hsl(0, 0%, 100%); /* Pastel red */
+    text-shadow: 0 0 1px #6bffab; /* Glowing effect */
+}
+
+
+#message {
+    font-size: 88px;
+    text-align:left;
+    margin-bottom: 10%;
+    margin-left: -15%;
+    font-family:Arial, Helvetica, sans-serif;
+    
+    height: 200px;
+    color:#207745b3; 
+    text-shadow: 0 0 1px #6bffab; /* Glowing effect */
+}
+
+#embedMedia{
+    margin-top: 10%;
+}
+
+.dim-background {
+    width:100%; /* Adjust width to account for padding */
+    height: 100%; /* Adjust height to your preference */
+    background-color: rgba(0, 0, 0, 0.5); /* Dim effect */
+    transition: background-color 1s ease; /* Smooth transition */
+}
+
+/* Additional styles for glowing timer, message, and button styles */
+
+/* Add any additional styles for buttons and body as before */
+
