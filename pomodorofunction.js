@@ -64,6 +64,7 @@ function toggleTimer() {
 document.getElementById('toggleButton').addEventListener('click', toggleTimer);
 
 document.getElementById('stopButton').addEventListener('click', function() {
+    if(isTimerRunning){
     // Stop the timer and reset it
     clearInterval(timerInterval);
     timerInterval = null; // Ensure interval is cleared
@@ -74,5 +75,6 @@ document.getElementById('stopButton').addEventListener('click', function() {
     document.body.classList.remove('dim-background'); // Brighten the background
     document.getElementById('message').textContent = "Done already?";
     document.getElementById('message').style.display = 'block'; // Show the updated message});
+    }
 });
 
