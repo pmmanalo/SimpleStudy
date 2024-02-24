@@ -86,8 +86,8 @@ textarea {
 #message {
     font-size: 88px;
     text-align:left;
-    margin-bottom: 10%;
-    margin-left: -15%;
+    margin-bottom: 5%;
+    margin-left: 0%;
     font-family:Arial, Helvetica, sans-serif;
     
     height: 200px;
@@ -97,6 +97,7 @@ textarea {
 
 #embedMedia{
     margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .dim-background {
