@@ -1,83 +1,97 @@
-document.getElementById('notepadButton').addEventListener('click', function() {
-    // Add class to body to adjust layout
-    document.body.classList.add('notepadActive');
+class App {
+    constructor() {
+        this.initEventListeners();
+        this.timerInterval = null;
+        this.isTimerRunning = false;
+        this.originalMessage = "Let's get to work...";
+        this.startTime = 25 * 60; // 25 minutes in seconds
+        this.currentTime = this.startTime;
+    }
 
-    const messages = ["Start typing...", "I like sushi...", "Today will be a good day..."];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById('content').innerHTML = `<textarea placeholder="${randomMessage}" autofocus></textarea>`;
-    document.getElementById('content').style.display = 'block';
-    document.querySelector('.container').style.display = 'none';
-});
-document.getElementById('pomodoroButton').addEventListener('click', function() {
-    // Show the Pomodoro timer section
-    document.querySelector('.container').style.display = 'none';
-    document.getElementById('pomodoroSection').classList.remove('pomodoro-hide');
-});
+    initEventListeners() {
+        document.getElementById('notepadButton').addEventListener('click', () => this.toggleNotepad());
+        document.getElementById('pomodoroButton').addEventListener('click', () => this.showPomodoro());
+        document.getElementById('toggleButton').addEventListener('click', () => this.toggleTimer());
+        document.getElementById('stopButton').addEventListener('click', () => this.stopTimer());
+    }
 
-let timerInterval = null;
-let isTimerRunning = false;
-let timerPause = false;
-let originalMessage = "Let's get to work...";
-const startTime = 25 * 60; // 25 minutes in seconds
-let currentTime = startTime;
+    toggleNotepad() {
+        document.body.classList.add('notepadActive');
+        const savedContent = localStorage.getItem('notepadContent');
+        const messages = ["Start typing...", "I like sushi...", "Today will be a good day..."];
+        const placeholderMessage = messages[Math.floor(Math.random() * messages.length)];
 
-function updateTimerDisplay(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    document.getElementById('timer').textContent = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-}
+        let textareaHtml = savedContent ?
+            `<textarea autofocus>${savedContent}</textarea>` :
+            `<textarea placeholder="${placeholderMessage}" autofocus></textarea>`;
 
-function toggleTimer() {
-    if (!isTimerRunning) {
-        // Start or resume the timer
-        document.getElementById('toggleButton').textContent = 'Pause';
-        document.getElementById('message').textContent = originalMessage; // Reset the message
-        isTimerRunning = true;
-        timerPause = false;
-        document.body.classList.add('dim-background'); // Dim the background
-        
-        // Only set the interval if it's not already running
-        if (!timerInterval) {
-            timerInterval = setInterval(() => {
-                if (currentTime <= 0) {
-                    clearInterval(timerInterval);
-                    timerInterval = null; // Ensure interval is cleared
-                    isTimerRunning = false;
-                    document.getElementById('toggleButton').textContent = 'Start';
-                    document.getElementById('message').style.display = 'block';
-                    document.body.classList.remove('dim-background'); // Brighten the background
-                    // Optionally reset currentTime for a break
-                } else {
-                    currentTime--;
-                    updateTimerDisplay(currentTime);
-                }
-            }, 1000);
+        const contentElement = document.getElementById('content');
+        contentElement.innerHTML = textareaHtml;
+        contentElement.style.display = 'block';
+        document.querySelector('.container').style.display = 'none';
+
+        contentElement.querySelector('textarea').addEventListener('input', function() {
+            localStorage.setItem('notepadContent', this.value);
+        });
+    }
+
+    showPomodoro() {
+        document.querySelector('.container').style.display = 'none';
+        document.getElementById('pomodoroSection').classList.remove('pomodoro-hide');
+    }
+
+    updateTimerDisplay(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        document.getElementById('timer').textContent = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+
+    toggleTimer() {
+        if (!this.isTimerRunning) {
+            document.getElementById('toggleButton').textContent = 'Pause';
+            document.getElementById('message').textContent = this.originalMessage;
+            this.isTimerRunning = true;
+            document.body.classList.add('dim-background');
+
+            if (!this.timerInterval) {
+                this.timerInterval = setInterval(() => {
+                    if (this.currentTime <= 0) {
+                        this.resetTimer();
+                    } else {
+                        this.currentTime--;
+                        this.updateTimerDisplay(this.currentTime);
+                    }
+                }, 1000);
+            }
+        } else {
+            this.pauseTimer();
         }
-    } else {
-        // Pause the timer
-        timerPause = true;
-        clearInterval(timerInterval);
-        timerInterval = null; // Ensure interval is cleared
-        isTimerRunning = false;
+    }
+
+    resetTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.isTimerRunning = false;
+        this.currentTime = this.startTime;
+        this.updateTimerDisplay(this.currentTime);
         document.getElementById('toggleButton').textContent = 'Start';
-        document.body.classList.remove('dim-background'); // Brighten the background
+        document.getElementById('message').style.display = 'block';
+        document.body.classList.remove('dim-background');
+    }
+
+    pauseTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.isTimerRunning = false;
+        document.getElementById('toggleButton').textContent = 'Start';
+        document.body.classList.remove('dim-background');
+    }
+
+    stopTimer() {
+        this.resetTimer();
+        document.getElementById('message').textContent = "Done already?";
     }
 }
 
-document.getElementById('toggleButton').addEventListener('click', toggleTimer);
-
-document.getElementById('stopButton').addEventListener('click', function() {
-    if(isTimerRunning || timerPause){
-    // Stop the timer and reset it
-    clearInterval(timerInterval);
-    timerInterval = null; // Ensure interval is cleared
-    isTimerRunning = false;
-    currentTime = startTime; // Reset to initial time
-    updateTimerDisplay(currentTime);
-    document.getElementById('toggleButton').textContent = 'Start';
-    document.body.classList.remove('dim-background'); // Brighten the background
-    document.getElementById('message').textContent = "Done already?";
-    document.getElementById('message').style.display = 'block'; // Show the updated message});
-    }
-});
-
+// Instantiate and initialize the app
+new App();
