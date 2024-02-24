@@ -100,11 +100,16 @@ textarea {
 }
 
 .dim-background {
-    width:100%; /* Adjust width to account for padding */
-    height: 100%; /* Adjust height to your preference */
+    position: fixed; /* Changed from default to fixed */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Use vw unit to cover full viewport width */
+    height: 100vh; /* Use vh unit to cover full viewport height */
     background-color: rgba(0, 0, 0, 0.5); /* Dim effect */
     transition: background-color 1s ease; /* Smooth transition */
+    z-index: 1; /* Ensure it covers other content; adjust value as needed */
 }
+
 
 @media (max-width: 600px) {
     body, html {
