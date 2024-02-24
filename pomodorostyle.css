@@ -143,7 +143,7 @@ textarea {
         }
     
         #timer {
-            font-size: 8vw;
+            font-size: 15vw;
             margin: 1rem auto;
             padding: 0 5%; /* Adjust padding to ensure it's centered and well-spaced */
         }
@@ -176,5 +176,3 @@ textarea {
     }
     
 }
-
-
